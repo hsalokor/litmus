@@ -1,4 +1,5 @@
 (ns litmus.main
+  (:use [litmus.assert :only [equals? =>]])
   (:use-macros [litmus.macros :only [describe it given then]]))
 
 ; describe-given-then style
@@ -14,3 +15,7 @@
           (describe "#append is called"
                  (it "new item is appended to list"
                      true)))
+
+(describe "Number comparison"
+          (it "2 + 2 = 4"
+              (equals? (+ 2 2) => 3)))
