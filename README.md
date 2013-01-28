@@ -27,8 +27,8 @@ Install mocha-phantomjs
 
 ## Usage
 
-   lein cljsbuild once
-   mocha-phantomjs resources/test.html
+    lein cljsbuild once
+    mocha-phantomjs resources/test.html
 
 ## License
 
