@@ -1,3 +1,6 @@
 [submodule "vendor/mocha.js"]
 	path = vendor/mocha.js
 	url = git://github.com/visionmedia/mocha.git
+[submodule "vendor/chai.js"]
+	path = vendor/chai.js
+	url = git://github.com/chaijs/chai.git
