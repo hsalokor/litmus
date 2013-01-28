@@ -33,6 +33,7 @@ Install mocha-phantomjs
 # Backlog
 
 * Self-testing (needs at minimum throws? assertion)
+* Integrate tests to lein cljsbuild
 * Integrate Sinon.js to provide mocks/spies
 * Compile using :foreign-libs, integrating the dependencies to test framework (less setup on new project). Licences?
 
