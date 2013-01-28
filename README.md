@@ -13,7 +13,7 @@ For test HTML page
 
 * Mocha.js
 
-## Initial setup
+# Initial setup
 
 Update submodules
 
@@ -25,10 +25,16 @@ Install mocha-phantomjs
     npm install -g mocha
     npm install -g mocha-phantomjs
 
-## Usage
+# Usage
 
     lein cljsbuild once
     mocha-phantomjs resources/test.html
+
+# Backlog
+
+* Self-testing (needs at minimum throws? assertion)
+* Integrate Sinon.js to provide mocks/spies
+* Compile using :foreign-libs, integrating the dependencies to test framework (less setup on new project). Licences?
 
 ## License
 
