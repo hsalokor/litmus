@@ -12,6 +12,7 @@ For running tests
 For test HTML page
 
 * Mocha.js
+* Chai.js
 
 # Initial setup
 
