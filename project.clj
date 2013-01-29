@@ -9,11 +9,13 @@
   :cljsbuild {:builds [{:source-paths ["src/cljs"]
                         :compiler {:output-to "target/litmus.js"
                                    :optimizations :whitespace
-                                   :externs ["src/cljs/externs/mocha.js"]
+                                   :externs ["src/cljs/externs/mocha.js"
+                                             "src/cljs/externs/chai.js"]
                                    :pretty-print true}}
                        {:source-paths ["src/cljs"
                                        "test/cljs/"]
                         :compiler {:output-to "target/tests.js"
                                    :optimizations :whitespace
-                                   :externs ["src/cljs/externs/mocha.js"]
+                                   :externs ["src/cljs/externs/mocha.js"
+                                             "src/cljs/externs/chai.js"]
                                    :pretty-print true}}]})
