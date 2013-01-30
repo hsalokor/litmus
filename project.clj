@@ -6,16 +6,24 @@
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :plugins [[lein-cljsbuild "0.3.0"]]
   :hooks [leiningen.cljsbuild]
-  :cljsbuild {:builds [{:source-paths ["src/cljs"]
-                        :compiler {:output-to "target/litmus.js"
-                                   :optimizations :whitespace
-                                   :externs ["src/cljs/externs/mocha.js"
-                                             "src/cljs/externs/chai.js"]
-                                   :pretty-print true}}
-                       {:source-paths ["src/cljs"
-                                       "test/cljs/"]
-                        :compiler {:output-to "target/tests.js"
-                                   :optimizations :whitespace
-                                   :externs ["src/cljs/externs/mocha.js"
-                                             "src/cljs/externs/chai.js"]
-                                   :pretty-print true}}]})
+  :cljsbuild {:test-commands {"unit" ["mocha-phantomjs" "resources/test.html"]}
+              :builds {:dev {:source-paths ["src/cljs"]
+                             :compiler {:output-to "target/litmus.js"
+                                        :optimizations :whitespace
+                                        :externs ["src/cljs/externs/mocha.js"
+                                                  "src/cljs/externs/chai.js"]
+                                        :pretty-print true}}
+                       :prod {:source-paths ["src/cljs"]
+                              :compiler {:output-to "target/litmus.js"
+                                         :optimizations :advanced
+                                         :externs ["src/cljs/externs/mocha.js"
+                                                   "src/cljs/externs/chai.js"]
+                                         :pretty-print true}}
+
+                       :test {:source-paths ["src/cljs"
+                                             "test/cljs/"]
+                              :compiler {:output-to "target/tests.js"
+                                         :optimizations :whitespace
+                                         :externs ["src/cljs/externs/mocha.js"
+                                                   "src/cljs/externs/chai.js"]
+                                         :pretty-print true}}}})
