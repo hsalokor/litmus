@@ -7,4 +7,4 @@
    Note: the aget is required to bypass Google Closure compiler behaviour, where
    property with reserved keyword name causes compilation failure (in this case,
    'throws' or 'throw')."
-  `(apply (aget js/chai.assert "throws") [(fn [] ~@body) ~exception ~regex]))
+  `(apply (aget js/chai.assert "throws") [(fn [] ~body) ~exception ~regex]))
