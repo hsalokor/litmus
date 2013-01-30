@@ -3,6 +3,14 @@
   :url "http://github.com/hsalokor/litmus"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :min-lein-version "2.0.0"
+  :scm {:url "git@github.com/hsalokor/litmus.git"}
+  :pom-addition [:developers [:developer
+                              [:name "Harri Salokorpi"]
+                              [:url "http://github.com/hsalokor/litmus"]
+                              [:email "hsalokor@iki.fi"]
+                              [:timezone "+3"]]]
+
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :plugins [[lein-cljsbuild "0.3.0-1"]]
   :hooks [leiningen.cljsbuild]
