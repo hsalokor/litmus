@@ -35,7 +35,6 @@ Install mocha-phantomjs
 
 # Backlog
 
-* Package and deploy to Clojars
 * Integrate Sinon.js to provide mocks/spies
 * Add support for async testing (macro-variants providing the done-callback)
 * Helpers for conditionally running tests on (production) page. Url parameter http://...?test -> tests and deps are loaded
