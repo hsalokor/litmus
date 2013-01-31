@@ -4,6 +4,8 @@
   "Create necessary structure for checking exception throws without too much
    syntactic noise.
 
+   Example: (throws? (throw (js/Error. \"error\")) => js/Error #\"error\")
+
    Note: the aget is required to bypass Google Closure compiler behaviour, where
    property with reserved keyword name causes compilation failure (in this case,
    'throws' or 'throw')."
