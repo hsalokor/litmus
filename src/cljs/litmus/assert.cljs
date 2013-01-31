@@ -11,3 +11,11 @@
   [expected arrow actual]
   (check-arrow arrow)
   (.equal chai.assert expected actual))
+
+(defn ok?
+  "Checks that value is ok, i.e. truthy. Accepts optional message param.
+
+   Examples: (ok? my-object)
+             (ok? (my-fn a b c) \"my-fn call failed\")"
+  ([actual] (.ok chai.assert actual))
+  ([actual message] ( .ok actual message)))
