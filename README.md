@@ -35,6 +35,7 @@ Install mocha-phantomjs
 
 # Backlog
 
+* Negative asserts (not-equals?, not-ok?, not-throws?)
 * Example project (for testing integration and as documentation)
 * Integrate Sinon.js to provide mocks/spies
 * Add support for async testing (macro-variants providing the done-callback)
