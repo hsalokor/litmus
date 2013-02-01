@@ -1,5 +1,5 @@
 (ns litmus.test.assert
-  (:use [litmus.assert :only [=> equals? ok?]])
+  (:use [litmus.assert :only [=> equals? not-equals? ok?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws?]]))
 
@@ -24,7 +24,15 @@
                  (then "it throws exception"
                        (throws? (equals? (+ 2 2) 4) => js/Error #"Invalid.*=>.*"))))
 
-(describe "Assert (ok? actual)"
+(describe "Assert (not-equals? actual => expected)"
+          (given "function (+ 2 2)"
+                 (then "it does not return 3"
+                       (not-equals? (+ 2 2) => 3)))
+          (given "invalid form"
+                 (then "it throws exception"
+                       (throws? (not-equals? (+ 2 2) 4) => js/Error #"Invalid.*=>.*"))))
+
+(describe "Assert (ok? actual [message])"
           (given "truthy values"
                  (then "boolean passes" (ok? true))
                  (then "string passes" (ok? "String"))
