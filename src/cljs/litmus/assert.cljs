@@ -24,7 +24,7 @@
 (defn ok?
   "Checks that value is ok, i.e. truthy. Accepts optional message param.
 
-   Examples: (ok? my-object)
-             (ok? (my-fn a b c) \"my-fn call failed\")"
+   examples: (ok? my-object)
+             (ok? (my-fn a b c) \"my-fn call returned falsy\")"
   ([actual] (.ok chai.assert actual))
   ([actual message] (.ok chai.assert actual message)))
