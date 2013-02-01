@@ -18,4 +18,4 @@
    Examples: (ok? my-object)
              (ok? (my-fn a b c) \"my-fn call failed\")"
   ([actual] (.ok chai.assert actual))
-  ([actual message] ( .ok actual message)))
+  ([actual message] (.ok chai.assert actual message)))
