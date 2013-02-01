@@ -32,12 +32,14 @@
                  (then "empty map passes" (ok? {}))
                  (then "vector passes" (ok? [])))
           (given "falsy values"
-                 (then "nil fails" (throws? (ok? nil)
-                                            => js/Error #"expected null.*truthy"))
-                 (then "false fails" (throws? (ok? false)
-                                              => js/Error #"expected false.*truthy")))
+                 (then "nil fails"
+                       (throws? (ok? nil) => js/Error #"expected null.*truthy"))
+                 (then "false fails"
+                       (throws? (ok? false) => js/Error #"expected false.*truthy")))
           (given "falsy values with message"
-                 (then "nil fails with correct message" (throws? (ok? nil "value was nil")
-                                            => js/Error #"value was nil"))
-                 (then "false fails with correct message" (throws? (ok? false "value was false")
-                                              => js/Error #"value was false"))))
+                 (then "nil fails with correct message"
+                       (throws? (ok? nil "value was nil")
+                                => js/Error #"value was nil"))
+                 (then "false fails with correct message"
+                       (throws? (ok? false "value was false")
+                                => js/Error #"value was false"))))
