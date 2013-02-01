@@ -12,7 +12,7 @@
                               [:timezone "+3"]]]
 
   :dependencies [[org.clojure/clojure "1.4.0"]]
-  :plugins [[lein-cljsbuild "0.3.0-1"]]
+  :plugins [[lein-cljsbuild "0.3.0"]]
   :hooks [leiningen.cljsbuild]
   :cljsbuild {:test-commands {"unit" ["mocha-phantomjs" "resources/test.html"]}
               :builds {:dev {:source-paths ["src/cljs"]
