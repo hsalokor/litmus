@@ -11,10 +11,9 @@
        (map validate)))
 
 (defmacro with-mocks [mock-mapping & body]
-  (let [mappings# (prn (convert mock-mapping))]
-    `(do
-       (let [mocks# (-> ~mappings# (mapv litmus.mocks/apply))]
-         (try ~@body
-              (mapv litmus.mocks/verify mocks#)
-              (finally
-                (mapv litmus.mocks/restore mocks#)))))))  
+  (let [mappings# (convert mock-mapping)]
+    `(do (let [mocks# (mapv litmus.mocks/setup ~mappings#)]
+           (try ~@body
+                (mapv litmus.mocks/verify mocks#)
+                (finally
+                  (mapv litmus.mocks/restore mocks#)))))))
