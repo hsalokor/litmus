@@ -2,8 +2,8 @@
   (:use [litmus.assert :only [ok?]]))
 
 (defn setup [mapping]
-  (let [[call arrow result] mapping
-        stub (-> (.stub js/sinon)
+  (let [[func _ result] mapping
+        stub (-> (.stub js/sinon func)
                  (.returns result))]
     [stub mapping]))
 
