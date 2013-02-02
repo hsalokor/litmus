@@ -4,3 +4,6 @@
 [submodule "vendor/chai.js"]
 	path = vendor/chai.js
 	url = git://github.com/chaijs/chai.git
+[submodule "vendor/sinon.js"]
+	path = vendor/sinon.js
+	url = git://github.com/cjohansen/Sinon.JS.git
