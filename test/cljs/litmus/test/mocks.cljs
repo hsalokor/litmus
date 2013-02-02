@@ -10,4 +10,4 @@
           (given "installed with with-mocks macro"
                  (then "verifies that function is called"
                        (with-mocks [(test-fn 1) => 2]
-                         (equals? (test-fn 1) => 6)))))
+                         (equals? (test-fn 1) => 2)))))
