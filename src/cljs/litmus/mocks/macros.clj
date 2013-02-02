@@ -2,8 +2,9 @@
   (:use clojure.tools.trace))
 
 (defn validate [mapping]
-  (when-not (= (second mapping) '=>)
-    (throw (Exception. "Mock mappings must be in form (fn arg arg arg...) => result")))) 
+  (if-not (= (second mapping) '=>)
+    (throw (Exception. "Mock mappings must be in form (fn arg arg arg...) => result"))
+    mapping))
 
 (defn convert [mapping]
   (->> (partition 3 mapping)
