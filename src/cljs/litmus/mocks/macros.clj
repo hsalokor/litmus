@@ -20,7 +20,7 @@
        (map validate)
        (map separate)))
 
-(defmacro with-mocks [mock-mapping & body]
+(defmacro provided [mock-mapping & body]
   (let [mappings# (convert mock-mapping)]
     `(do (let [mocks# (mapv litmus.mocks/setup mappings#)]
            (try ~@body
