@@ -2,16 +2,21 @@
   (:use clojure.tools.trace))
 
 (defn validate [mapping]
-  (if-not (= (second mapping) '=>)
-    (throw (Exception. "Mock mappings must be in form (fn arg arg arg...) => result"))
-    mapping))
+  (let [[_ arrow _] mapping]
+    (if-not (= (first arrow) '=>)
+      (throw (Exception. "Mock mappings must be in form (fn arg arg arg... => result)"))
+      mapping)))
 
 (defn separate [mapping]
-  (let [[[func & args] _ result] mapping]
+  (let [[func & args] (first mapping)
+        result (last mapping)]
     (list func args result)))
 
-(defn convert [mapping]
-  (->> (partition 3 mapping)
+(defn partition-by-arrow [mapping]
+  (partition-by #(= '=> %) mapping))
+
+(defn convert [mappings]
+  (->> (map partition-by-arrow mappings)
        (map validate)
        (map separate)))
 
