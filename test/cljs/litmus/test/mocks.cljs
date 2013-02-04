@@ -7,8 +7,9 @@
   (+ 5 number))
 
 (describe "A mock"
-          (given "installed with with-mocks macro"
-                 (then "verifies that function is called"
-                       (provided [(test-fn 1 => 2)
-                                  (test-fn 2 => 4)]
-                         (equals? (test-fn 1) => 2)))))
+  (given "installed with with-mocks macro"
+    (then "verifies that function is called"
+      (provided [(test-fn 1 => 2)
+                 (test-fn 2 => 4)]
+        (equals? (test-fn 1) => 2)
+        (equals? (test-fn 2) => 4)))))
