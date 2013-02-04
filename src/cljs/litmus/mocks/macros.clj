@@ -8,22 +8,27 @@
       mapping)))
 
 (defn separate [mapping]
-  (let [[func & args] (first mapping)
-        result (last mapping)]
-    (list func args result)))
+  (let [[func args arrow result] mapping]
+    [func args result]))
 
 (defn partition-by-arrow [mapping]
   (partition-by #(= '=> %) mapping))
 
-(defn convert [mappings]
-  (->> (map partition-by-arrow mappings)
-       (map validate)
-       (map separate)))
+(defn convert [mapping]
+  (->> mapping
+       (partition-by-arrow)
+       (validate)
+       (separate)))
 
 (defmacro provided [mock-mapping & body]
-  (let [mappings# (convert mock-mapping)]
-    `(do (let [mocks# (mapv litmus.mocks/setup mappings#)]
-           (try ~@body
-                (mapv litmus.mocks/verify mocks#)
-                (finally
-                  (mapv litmus.mocks/restore mocks#)))))))
+  (let [[first# & rest#] mock-mapping]
+    (if first#
+      (let [mapping# (convert first#)]
+        `(do
+           (.log js/console ~mapping#)
+           (let [mock# (litmus.mocks/setup ~mapping#)]
+               (try (provided ~rest# ~body)
+                    (litmus.mocks/verify mock#)
+                    (finally
+                      (litmus.mocks/restore mock#))))))
+      `(do ~@body))))
