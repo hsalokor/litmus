@@ -17,7 +17,7 @@
                                 => js/Error #"Error occured")))
           (given "invalid form"
                  (then "it throws exception"
-                       (throws? (throws? (+ 2 2 ) 2 "invalid")
+                       (throws? (throws? (+ 2 2 ) 2 2 "invalid")
                                 => js/Error #"Invalid.*=>.*"))))
 
 (describe "Assert (not-throws? (.. form ..) => Exception)"
