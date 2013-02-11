@@ -11,3 +11,11 @@
    'throws' or 'throw')."
   `(do (litmus.assert.syntax/check-arrow ~arrow)
        (apply (aget js/chai.assert "throws") [(fn [] ~body) ~exception ~regex])))
+
+(defmacro not-throws? [body arrow exception]
+  "Create necessary structure for checking that given exception is not thrown without too much
+   syntactic noise.
+
+   Example: (not-throws? (+ 1 1) => js/Error)"
+  `(do (litmus.assert.syntax/check-arrow ~arrow)
+       (.doesNotThrow js/chai.assert (fn [] ~body) ~exception)))
