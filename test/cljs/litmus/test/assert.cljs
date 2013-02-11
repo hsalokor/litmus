@@ -22,7 +22,7 @@
                        (equals? (+ 2 2) => 4)))
           (given "invalid form"
                  (then "it throws exception"
-                       (throws? (equals? (+ 2 2) 4) => js/Error #"Invalid.*=>.*"))))
+                       (throws? (equals? (+ 2 2) "l" 4) => js/Error #"Invalid.*=>.*"))))
 
 (describe "Assert (not-equals? actual => expected)"
           (given "function (+ 2 2)"
@@ -30,7 +30,7 @@
                        (not-equals? (+ 2 2) => 3)))
           (given "invalid form"
                  (then "it throws exception"
-                       (throws? (not-equals? (+ 2 2) 4) => js/Error #"Invalid.*=>.*"))))
+                       (throws? (not-equals? (+ 2 2) "l" 4) => js/Error #"Invalid.*=>.*"))))
 
 (describe "Assert (ok? actual [message])"
           (given "truthy values"
