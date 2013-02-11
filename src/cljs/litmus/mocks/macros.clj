@@ -8,8 +8,8 @@
       mapping)))
 
 (defn separate [mapping]
-  (let [[func args arrow result] mapping]
-    [func args result]))
+  (let [[fn-decl arrow result] mapping]
+    [(first fn-decl) (rest fn-decl) (first result)]))
 
 (defn partition-by-arrow [mapping]
   (partition-by #(= '=> %) mapping))
@@ -21,14 +21,13 @@
        (separate)))
 
 (defmacro provided [mock-mapping & body]
-  (let [[first# & rest#] mock-mapping]
-    (if first#
-      (let [mapping# (convert first#)]
+  (let [[first & rest] mock-mapping]
+    (if first
+      (let [[func args result] (convert first)]
         `(do
-           (.log js/console ~mapping#)
-           (let [mock# (litmus.mocks/setup ~mapping#)]
-               (try (provided ~rest# ~body)
-                    (litmus.mocks/verify mock#)
+           (let [mock# (-> js/sinon (.mock ~func))]
+               (try (provided ~rest ~body)
+                    (litmus.assert/ok? (.called mock#))
                     (finally
-                      (litmus.mocks/restore mock#))))))
+                      (.restore mock#))))))
       `(do ~@body))))
