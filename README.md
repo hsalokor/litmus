@@ -30,6 +30,12 @@ Install mocha-phantomjs
 
 # Usage
 
+Use leiningen
+
+    lein test
+
+Or, call mocha-phantomjs directly
+
     lein cljsbuild once
     mocha-phantomjs resources/test.html
 
