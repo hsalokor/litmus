@@ -15,6 +15,7 @@ For test HTML page
 
 * Mocha.js
 * Chai.js
+* Sinon.js
 
 # Initial setup
 
