@@ -1,6 +1,6 @@
 # Litmus
 
-[![Build Status](https://travis-ci.org/hsalokor/litmus.png)](https://travis-ci.org/hsalokor/litmus)
+[![Build Status](https://travis-ci.org/hsalokor/litmus.png?branch=master)](https://travis-ci.org/hsalokor/litmus)
 
 Simple Clojurescript bindings for Mocha.js, Sinon.js and others.
 
