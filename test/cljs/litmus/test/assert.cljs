@@ -37,6 +37,12 @@
           (given "function (+ 2 2)"
                  (then "it returns 4"
                        (equals? (+ 2 2) => 4)))
+          (given "list [1 2 3]"
+                 (then "compares to [1 2 3] correctly"
+                       (equals? [1 2 3] => [1 2 3]))
+                 (then "produces correct error if compared to [3 2 1]"
+                       (throws? (equals? [1 2 3] => [3 2 1])
+                                => js/Error #".*\[ 1, 2, 3 \] to .*\[ 3, 2, 1 \]")))
           (given "invalid form"
                  (then "it throws exception"
                        (throws? (equals? (+ 2 2) "lol" 4) => js/Error #"Invalid.*=>.*"))))
