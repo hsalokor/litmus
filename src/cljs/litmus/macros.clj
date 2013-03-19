@@ -17,3 +17,10 @@
 (defmacro then [description & body]
   `(do (js/it ~description
               (fn [] ~@body))))
+
+; Before and after
+(defmacro before [& body]
+  `(do (js/before (fn [] ~@body))))
+
+(defmacro after [& body]
+  `(do (js/after (fn [] ~@body))))
