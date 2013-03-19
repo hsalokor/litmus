@@ -10,7 +10,7 @@
    Example: (equals? (+ 2 2) => 4)"
   [expected arrow actual]
   (check-arrow arrow)
-  (.equal chai.assert expected actual))
+  (.deepEqual chai.assert (clj->js expected) (clj->js actual)))
 
 (defn not-equals?
   "Checks that two values are not equal. Requires arrow form,
@@ -19,12 +19,12 @@
    Example: (not-equals? (+ 2 2) => 3)"
   [expected arrow actual]
   (check-arrow arrow)
-  (.notEqual chai.assert expected actual))
+  (.notEqual chai.assert (clj->js expected) (clj->js actual)))
 
 (defn ok?
   "Checks that value is ok, i.e. truthy. Accepts optional message param.
 
    examples: (ok? my-object)
              (ok? (my-fn a b c) \"my-fn call returned falsy\")"
-  ([actual] (.ok chai.assert actual))
-  ([actual message] (.ok chai.assert actual message)))
+  ([actual] (.ok chai.assert (clj->js actual)))
+  ([actual message] (.ok chai.assert (clj->js actual) message)))
