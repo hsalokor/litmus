@@ -14,11 +14,7 @@
   </script/>
   <script src="../target/tests.js"></script>
   <script>
-    if (window.mochaPhantomJS) {
-      mochaPhantomJS.run();
-    } else {
-      mocha.run();
-    }
+    litmus.runner.run_tests({});
   </script>
 </body>
 </html>
