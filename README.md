@@ -41,7 +41,7 @@ Or, call mocha-phantomjs directly
 
 # Backlog
 
-* Helpers for conditionally running tests on (production) page. Url parameter http://...?test -> tests and deps are loaded
+* Helpers for conditionally running tests on (production) page. Url parameter http://...?test -> tests and deps are loaded - **WIP** -> topic/conditional_integration
 * Integrate Sinon.js to provide mocks/spies - **WIP** -> topic/mocks
 * Example project (for testing integration and as documentation)
 * Add more assertions (see Chai Asserts module)
