@@ -6,12 +6,18 @@
 </head>
 <body>
   <div id="mocha"></div>
+  <script>
+    var test_mode = /[\\?&]test=true/.test(document.URL)
+    if (test_mode) {
+      alert("Lol!")
+    }
+  </script/>
   <script src="../vendor/mocha.js/mocha.js"></script>
   <script src="../vendor/chai.js/chai.js"></script>
   <script>
     mocha.ui('bdd')
     mocha.reporter('html')
-  </script/>
+  </script>
   <script src="../target/tests.js"></script>
   <script>
     litmus.runner.run_tests({});
