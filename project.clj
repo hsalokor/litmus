@@ -14,7 +14,7 @@
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :plugins [[lein-cljsbuild "0.3.0"]]
   :hooks [leiningen.cljsbuild]
-  :cljsbuild {:test-commands {"unit" ["mocha-phantomjs" "resources/test.html"]}
+  :cljsbuild {:test-commands {"unit" ["mocha-phantomjs" "resources/test.html?test=true"]}
               :builds {:dev {:source-paths ["src/cljs"]
                              :compiler {:output-to "target/litmus.js"
                                         :optimizations :whitespace
