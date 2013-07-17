@@ -1,4 +1,4 @@
-(defproject litmus "0.2.0-SNAPSHOT"
+(defproject litmus "0.2.0"
   :description "Testing library for Clojurescript"
   :url "http://github.com/hsalokor/litmus"
   :license {:name "Eclipse Public License"
