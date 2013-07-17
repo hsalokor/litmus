@@ -7,3 +7,6 @@
 [submodule "vendor/sinon.js"]
 	path = vendor/sinon.js
 	url = git@github.com:cjohansen/Sinon.JS.git
+[submodule "vendor/smoax"]
+	path = vendor/smoax
+	url = git@github.com:mtkopone/smoax
