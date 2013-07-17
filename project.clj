@@ -20,14 +20,16 @@
                              :compiler {:output-to "target/litmus.js"
                                         :optimizations :whitespace
                                         :externs ["src/cljs/externs/mocha.js"
-                                                  "src/cljs/externs/chai.js"]
+                                                  "src/cljs/externs/chai.js"
+                                                  "src/cljs/externs/jquery-1.9.js"]
                                         :pretty-print true}}
                        :prod {:source-paths ["src/cljs"]
 			      :jar true
                               :compiler {:output-to "target/litmus.js"
                                          :optimizations :advanced
                                          :externs ["src/cljs/externs/mocha.js"
-                                                   "src/cljs/externs/chai.js"]
+                                                   "src/cljs/externs/chai.js"
+                                                   "src/cljs/externs/jquery-1.9.js"]
                                          :pretty-print true}}
 
                        :test {:source-paths ["src/cljs"
@@ -35,5 +37,6 @@
                               :compiler {:output-to "target/tests.js"
                                          :optimizations :whitespace
                                          :externs ["src/cljs/externs/mocha.js"
-                                                   "src/cljs/externs/chai.js"]
+                                                   "src/cljs/externs/chai.js"
+                                                   "src/cljs/externs/jquery-1.9.js"]
                                          :pretty-print true}}}})
