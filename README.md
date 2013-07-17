@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/hsalokor/litmus.png?branch=master)](https://travis-ci.org/hsalokor/litmus)
 
-Simple Clojurescript bindings for Mocha.js, Sinon.js and others.
+Simple Clojurescript bindings for Mocha.js, Sinon.js, smoax and others.
 
 # Dependencies
 
@@ -15,6 +15,7 @@ For test HTML page
 
 * Mocha.js
 * Chai.js
+* [Smoax](https://github.com/mtkopone/smoax)
 
 # Initial setup
 
