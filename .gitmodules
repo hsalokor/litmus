@@ -4,3 +4,6 @@
 [submodule "vendor/chai.js"]
 	path = vendor/chai.js
 	url = git://github.com/chaijs/chai.git
+[submodule "vendor/smoax"]
+	path = vendor/smoax
+	url = git@github.com:mtkopone/smoax
