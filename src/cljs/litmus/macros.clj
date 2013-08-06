@@ -1,6 +1,6 @@
 (ns litmus.macros)
 
-; Direct mapping of describe-it style
+;; Direct mapping of describe-it style
 (defmacro describe [description & body]
   `(do (js/describe ~description
                     (fn [] ~@body))))
@@ -9,7 +9,7 @@
   `(do (js/it ~description
               (fn [] ~@body))))
 
-; Aliases for it - given and then
+;; Aliases for it - given and then
 (defmacro given [description & body]
   `(do (js/describe ~description
                     (fn [] ~@body))))
@@ -18,7 +18,7 @@
   `(do (js/it ~description
               (fn [] ~@body))))
 
-; Before and after
+;; Before and after
 (defmacro before [& body]
   `(do (js/before (fn [] ~@body))))
 
