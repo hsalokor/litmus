@@ -24,3 +24,10 @@
 
 (defmacro after [& body]
   `(do (js/after (fn [] ~@body))))
+
+;; Before-each and after-each
+(defmacro before-each [& body]
+  `(do (js/beforeEach (fn [] ~@body))))
+
+(defmacro after-each [& body]
+  `(do (js/afterEach (fn [] ~@body))))

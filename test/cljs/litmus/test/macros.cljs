@@ -1,6 +1,6 @@
 (ns litmus.test.macros
   (:use [litmus.assert :only [=> equals?]])
-  (:use-macros [litmus.macros :only [describe given then it before after]]))
+  (:use-macros [litmus.macros :only [describe given then it before after before-each after-each]]))
 
 (describe "Test form"
 
@@ -46,5 +46,27 @@
                  (it "<dummy test>"
                      (equals? 1 => 1)))
           (describe "In third describe"
-                 (it "the previous describe block has triggered only 1 after"
+                 (it "the previous describe block with 2 tests has triggered after-hook once"
                        (equals? @after-test-atom => 2))))
+
+(def before-each-atom (atom 0))
+
+(describe "Before-each hook"
+          (before-each (swap! before-each-atom inc))
+          (given "when set up in describe block"
+                 (then "is triggered before first test"
+                       (equals? @before-each-atom => 1))
+                 (then "is triggered before second test"
+                       (equals? @before-each-atom => 2))))
+
+(def after-each-atom (atom 0))
+
+(describe "After-each hook"
+          (after-each (swap! after-each-atom inc))
+          (given "when set up in describe block"
+                 (then "is not triggered before first test"
+                       (equals? @after-each-atom => 0))
+                 (then "is triggered before second test"
+                       (equals? @after-each-atom => 1))
+                 (then "is triggered before third test"
+                       (equals? @after-each-atom => 2))))
