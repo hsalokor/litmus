@@ -6,4 +6,4 @@
 	url = git://github.com/chaijs/chai.git
 [submodule "vendor/smoax"]
 	path = vendor/smoax
-	url = git@github.com:mtkopone/smoax
+	url = git://github.com:mtkopone/smoax
