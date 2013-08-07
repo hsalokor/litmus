@@ -2,13 +2,24 @@
   (:use [jayq.core :only [$]]
         [litmus.assert.syntax :only [check-arrow]]))
 
-(defn exists?
+(defn match-count
+  "Checks that given number of matches with given selector are found. Requires arrow form,
+   throws exception if => is not provided.
+
+   Selector can be any jQuery compatible selector in string format.
+
+   Example: (match-count \"#my-node .element\" => 3)"
+  [selector arrow result]
+  (check-arrow arrow)
+  (.equal chai.assert (count ($ selector)) result))
+
+(defn does-exist?
   "Checks that element with given selector is found. Requires arrow form,
    throws exception if => is not provided.
 
    Selector can be any jQuery compatible selector in string format.
 
-   Example: (exists? \"#my-element\" => true)"
+   Example: (does-exist? \"#my-element\" => true)"
   [selector arrow result]
   (check-arrow arrow)
   (let [elem-count (count ($ selector))]
