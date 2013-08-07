@@ -53,3 +53,20 @@
           (str "Element returned by selector "
                selector
                (if result " is not visible" " is visible"))))
+
+(defn is-enabled?
+  "Check that element with given selector is enabled. In this context
+   it means that the element is not :disabled.
+
+   Requires arrow form,throws exception if => is not provided.
+
+   Selector can be any jQuery compatible selector in string format.
+
+   Example: (is-enabled? \"#my-element\" => true)"
+  [selector arrow result]
+  (check-arrow arrow)
+  (.equal chai.assert (-> ($ selector) (is ":disabled") not)
+          result
+          (str "Element returned by selector "
+               selector
+               (if result " is not enabled" " is enabled"))))
