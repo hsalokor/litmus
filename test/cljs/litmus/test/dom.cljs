@@ -1,6 +1,6 @@
 (ns litmus.test.dom
   (:use [litmus.assert :only [=> equals?]]
-        [litmus.dom :only [does-exist? match-count]])
+        [litmus.dom :only [does-exist? match-count is-visible?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws? not-throws?]]))
 
@@ -24,4 +24,15 @@
                        (match-count ".no-items" => 0))
                  (then "it throws assertion failure for selector .no-items with expected result of 3"
                        (throws? (match-count ".no-items" => 3)
-                                => js/Error #".*expected 0 to equal 3.*"))))
+                                => js/Error #".*expected 0 to equal 3.*")))
+          (given "calling is-visible? to visible #my-node node"
+                 (then "it passes check for selector #my-node with expected result true"
+                       (is-visible? "#my-node" => true))
+                 (then "it throws assertion failure for selector #my-node with expected result false"
+                       (throws? (is-visible? "#my-node" => false)
+                                => js/Error #".*Element returned by selector.*is visible.*")))
+          (given "calling is-visible? to hidden nodes #hidden and #display-none"
+                 (then "it passes check for selector #hidden with expected result false"
+                       (is-visible? "#hidden" => false))
+                 (then "it passes check for selector #display-none with expected result false"
+                       (is-visible? "#display-none" => false))))
