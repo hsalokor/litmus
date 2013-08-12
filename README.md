@@ -8,7 +8,7 @@ Simple Clojurescript bindings for Mocha.js, Sinon.js, smoax and others.
 
 Add dependency
 
-   [litmus "0.3.0]
+    [litmus "0.3.0]
 
 To your project clj.
 
