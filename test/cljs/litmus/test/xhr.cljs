@@ -1,7 +1,7 @@
 (ns litmus.test.xhr
   (:require [jayq.core])
   (:use [litmus.assert :only [=> equals? not-equals? ok?]]
-        [litmus.xhr :only [ajax-called? ajax-not-called? ajax-called-with?]])
+        [litmus.xhr :only [ajax-called? ajax-not-called? ajax-called-with? ajax-called-with-json?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws?]]
                [litmus.macros.xhr :only [with-json-mocks]]
@@ -94,4 +94,12 @@
                              :data "mydata"
                              :error throw-exception}]
           (throws? (ajax-called-with? "POST" "/myurl" "wrongdata" => true)
-                   => js/Error #"Expected the URL /myurl .* method POST and data wrongdata.* was not"))))))
+                   => js/Error #"Expected the URL /myurl .* method POST and data wrongdata.* was not"))))
+    (then "ajax-called-with-json? POST /myurl {:my \"data\"} => true passes"
+      (with-json-mocks [["POST" "/myurl" => 200 {:my "data"}]]
+        (let-ajax [response {:url "/myurl"
+                             :method :post
+                             :dataType :json
+                             :data "{\"my\":\"data\"}"
+                             :error throw-exception}]
+          (ajax-called-with-json? "POST" "/myurl" {:my "data"} => true))))))
