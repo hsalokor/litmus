@@ -1,5 +1,5 @@
 (ns litmus.dom
-  (:use [jayq.core :only [$ is css]]
+  (:use [jayq.core :only [$ is css text has-class]]
         [litmus.assert.syntax :only [check-arrow]])
   (:refer-clojure :exclude [is]))
 
@@ -70,3 +70,25 @@
           (str "Element returned by selector "
                selector
                (if result " is not enabled" " is enabled"))))
+
+(defn has-text?
+  "Check if element identified by selector has expected text.
+
+   Example: (has-text? ($ \"#my-node\") \"my text\" => true)"
+  [selector expected-text arrow result]
+  (check-arrow arrow)
+  (if result
+    (.equal chai.assert (text ($ selector)) expected-text)
+    (.notEqual chai.assert (text ($ selector)) expected-text)))
+
+(defn has-class?
+  "Check if element identified by selector has expected class.
+
+   Example: (has-class? ($ \"#my-node\") \"my-class\" => true)"
+  [selector expected-class arrow result]
+  (check-arrow arrow)
+  (if result
+    (.isTrue chai.assert (has-class ($ selector) expected-class)
+             (format "Element selected by selector %s did not have class %s" selector expected-class))
+    (.isFalse chai.assert (has-class ($ selector) expected-class)
+             (format "Element selected by selector %s did have class %s" selector expected-class))))

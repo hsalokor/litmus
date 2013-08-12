@@ -1,6 +1,6 @@
 (ns litmus.test.dom
   (:use [litmus.assert :only [=> equals?]]
-        [litmus.dom :only [does-exist? match-count is-visible? is-enabled?]])
+        [litmus.dom :only [does-exist? match-count is-visible? is-enabled? has-text? has-class?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws? not-throws?]]))
 
@@ -46,4 +46,21 @@
                => js/Error #".*Element returned by selector.*is not enabled.*"))
     (then "throws assertion error for selector #enabled-button with expected result false"
       (throws? (is-enabled? "#enabled-button" => false)
-               => js/Error #".*Element returned by selector.*is enabled.*"))))
+               => js/Error #".*Element returned by selector.*is enabled.*")))
+  (given "has-text?"
+    (then "passes check for selector #text-node"
+      (has-text? "#text-node" "Test text" => true))
+    (then "fails check for selector #no-node"
+      (throws? (has-text? "#no-node" "Test text" => true)
+               => js/Error #"expected '' to equal 'Test text'")))
+  (given "has-class?"
+    (then "passes check for node #test-item when expected result is true"
+      (has-class? "#test-item" "items" => true))
+    (then "fails check for node #test-item when expected result is true"
+      (throws? (has-class? "#test-item" "items" => false)
+               => js/Error #"Element selected by selector #test-item did have class items.*"))
+    (then "fails check for selector #my-node when expected result is true"
+      (throws? (has-class? "#my-node" "items" => true)
+               => js/Error #"Element selected by selector #my-node did not have class items.*"))
+    (then "passes check for selector #my-node when expected result is false"
+      (has-class? "#my-node" "items" => false))))
