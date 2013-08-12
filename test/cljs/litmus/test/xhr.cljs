@@ -46,7 +46,7 @@
     (then "ajax-called? => true (any call) passes check if HTTP call is made"
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
         (let-ajax [response {:url "/myurl" :dataType :json :error throw-exception}]
-                  (ajax-called? => true))))
+          (ajax-called? => true))))
     (then "ajax-called? => false (any call) passes check if no HTTP call is made"
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
         (ajax-called? => false)))
