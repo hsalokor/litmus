@@ -8,10 +8,36 @@
     (catch js/Error msg
       false)))
 
-(defn ajax-called? [arrow result]
+(defn- been-invoked-with? [method url data]
+  (try (-> (js/chai.Assertion. js/smoax)
+           (.beenInvokedWith method url data))
+       true
+    (catch js/Error msg
+      false)))
+
+(defn ajax-called?
+  "This assertion checks if the code inside the mock makes any AJAX call.
+
+   Example: (with-json-mocks [[...]]
+              (let-ajax [...]
+                (ajax-called? => true)))"
+  [arrow result]
   (check-arrow arrow)
   (when (not= (been-invoked?) result)
     (.assert js/chai false
              (if result
                "Expected the ajax to have been invoked, but it was not"
                "Expected the ajax not to have been invoked, but it was"))))
+
+(defn ajax-called-with?
+  "This assertion checks if the code inside the mock makes AJAX call with
+   to given URL, with given verb and with given payload."
+  [method url data arrow result]
+  (check-arrow arrow)
+  (when (not= (been-invoked-with? method url data) result)
+    (.assert js/chai false
+             (if result
+               (format "Expected the URL %s to have been invoked with method %s and data %s, but it was not"
+                       url method data)
+               (format "Expected the URL %s not to have been invoked with method %s and data %s, but it was"
+                       url method data)))))

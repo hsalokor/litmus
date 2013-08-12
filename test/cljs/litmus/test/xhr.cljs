@@ -1,7 +1,7 @@
 (ns litmus.test.xhr
   (:require [jayq.core])
   (:use [litmus.assert :only [=> equals? not-equals? ok?]]
-        [litmus.xhr :only [ajax-called? ajax-not-called?]])
+        [litmus.xhr :only [ajax-called? ajax-not-called? ajax-called-with?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws?]]
                [litmus.macros.xhr :only [with-json-mocks]]
@@ -58,4 +58,12 @@
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
         (let-ajax [response {:url "/myurl" :dataType :json :error throw-exception}]
           (throws? (ajax-called? => false)
-                   => js/Error #"Expected the ajax not to have been invoked, but it was"))))))
+                   => js/Error #"Expected the ajax not to have been invoked, but it was"))))
+    (then "ajax-called-with? GET /myurl nil => true passes when call is made"
+      (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
+        (let-ajax [response {:url "/myurl"}]
+          (ajax-called-with? "GET" "/myurl" nil => true))))
+    (then "ajax-called-with? GET /myurl nil => true fails when no call is made"
+      (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
+        (throws? (ajax-called-with? "GET" "/myurl" nil => true)
+                 => js/Error #"Expected the URL /myurl to have been invoked.*GET.*null.*")))))
