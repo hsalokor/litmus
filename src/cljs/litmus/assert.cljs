@@ -28,3 +28,13 @@
              (ok? (my-fn a b c) \"my-fn call returned falsy\")"
   ([actual] (.ok chai.assert (clj->js actual)))
   ([actual message] (.ok chai.assert (clj->js actual) message)))
+
+(defn matches?
+  "Checks that value matches given regex pattern. Requires arrow form.
+
+   Example: (matches? \"my test string\" #\".*test.*\" => true)"
+  [actual pattern arrow result]
+  (check-arrow arrow)
+  (if result
+    (.match chai.assert actual pattern)
+    (.notMatch chai.assert actual pattern)))

@@ -1,5 +1,5 @@
 (ns litmus.test.assert
-  (:use [litmus.assert :only [=> equals? not-equals? ok?]])
+  (:use [litmus.assert :only [=> equals? not-equals? ok? matches?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws? not-throws?]]))
 
@@ -43,4 +43,15 @@
     (then "nil fails with correct message"
       (throws? (ok? nil "value was nil") => js/Error #"value was nil"))
     (then "false fails with correct message"
-      (throws? (ok? false "value was false") => js/Error #"value was false"))))
+      (throws? (ok? false "value was false") => js/Error #"value was false")))
+  (given "(matches? actual pattern => result)"
+    (then "matching pattern passes check, when expected result is true"
+      (matches? "my test string" #".*test.*" => true))
+    (then "non-matching pattern throws exception, when expected result is true"
+      (throws? (matches? "my text string" #".*test.*" => true)
+               => js/Error #"expected \'my text string\' to match /.*test.*/"))
+    (then "matching pattern throws exception, when expected result is false"
+      (throws? (matches? "my test string" #".*test.*" => false)
+               => js/Error #"expected \'my test string\' not to match /.*test.*/"))
+    (then "non-matching pattern passes check, when expected result is false"
+      (matches? "my text string" #".*test.*" => false))))
