@@ -59,11 +59,39 @@
         (let-ajax [response {:url "/myurl" :dataType :json :error throw-exception}]
           (throws? (ajax-called? => false)
                    => js/Error #"Expected the ajax not to have been invoked, but it was"))))
-    (then "ajax-called-with? GET /myurl nil => true passes when call is made"
+    (then "ajax-called-with? GET /myurl nil => true passes only when call is made with specific parameters"
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
         (let-ajax [response {:url "/myurl"}]
-          (ajax-called-with? "GET" "/myurl" nil => true))))
+          (ajax-called-with? "GET" "/myurl" nil => true)
+          (throws? (ajax-called-with? "GET" "/wrongurl" nil => true)
+                   => js/Error #"Expected the URL /wrongurl .* method GET and data null.* was not"))))
     (then "ajax-called-with? GET /myurl nil => true fails when no call is made"
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
         (throws? (ajax-called-with? "GET" "/myurl" nil => true)
-                 => js/Error #"Expected the URL /myurl to have been invoked.*GET.*null.*")))))
+                 => js/Error #"Expected the URL /myurl to have been invoked.*GET.*null.*")))
+    (then "ajax-called-with? POST /myurl mydata => true passes when HTTP call is made"
+      (with-json-mocks [["POST" "/myurl" => 200 {:lol "bal"}]]
+        (let-ajax [response {:url "/myurl"
+                             :method :post
+                             :dataType :json
+                             :data "mydata"
+                             :error throw-exception}]
+          (ajax-called-with? "POST" "/myurl" "mydata" => true))))
+    (then "ajax-called-with? POST /wrongurl mydata => true fails"
+      (with-json-mocks [["POST" "/myurl" => 200 {:lol "bal"}]]
+        (let-ajax [response {:url "/myurl"
+                             :method :post
+                             :dataType :json
+                             :data "mydata"
+                             :error throw-exception}]
+          (throws? (ajax-called-with? "POST" "/wrongurl" "mydata" => true)
+                   => js/Error #"Expected the URL /wrongurl .* method POST and data mydata.* was not"))))
+    (then "ajax-called-with? POST /myurl wrongdata => true fails"
+      (with-json-mocks [["POST" "/myurl" => 200 {:lol "bal"}]]
+        (let-ajax [response {:url "/myurl"
+                             :method :post
+                             :dataType :json
+                             :data "mydata"
+                             :error throw-exception}]
+          (throws? (ajax-called-with? "POST" "/myurl" "wrongdata" => true)
+                   => js/Error #"Expected the URL /myurl .* method POST and data wrongdata.* was not"))))))
