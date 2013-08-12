@@ -4,12 +4,29 @@
 
 Simple Clojurescript bindings for Mocha.js, Sinon.js, smoax and others.
 
+# Usage
+
+Add dependency
+
+   [litmus "0.3.0]
+
+To your project clj.
+
+Litmus is self-testing - see `resources/` for test HTML, `project.clj`
+for Leiningen setup and `test` for example tests.
+
+# Features
+
+* Basic test running with either `describe-it` style or `describe-given-then` style
+* AJAX mocking support via smoax
+* Simple DOM matchers
+
 # Dependencies
 
 For running tests
 
 * Node.js
-* Mocha-phantomjs (for running tests)
+* Mocha-phantomjs
 
 For test HTML page
 
