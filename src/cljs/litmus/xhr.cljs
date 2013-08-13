@@ -2,18 +2,22 @@
   (:use [litmus.assert.syntax :only [check-arrow]]))
 
 (defn- been-invoked? []
-  (try (-> (js/chai.Assertion. js/smoax)
-           (.beenInvoked))
-       true
-    (catch js/Error msg
-      false)))
+  (-> (js/chai.Assertion. js/smoax)
+      (.beenInvoked)))
+
+(defn- not-been-invoked? []
+  (-> (js/chai.Assertion. js/smoax)
+      (.-not)
+      (.beenInvoked)))
 
 (defn- been-invoked-with? [method url data]
-  (try (-> (js/chai.Assertion. js/smoax)
-           (.beenInvokedWith method url data))
-       true
-    (catch js/Error msg
-      false)))
+  (-> (js/chai.Assertion. js/smoax)
+      (.beenInvokedWith method url data)))
+
+(defn- not-been-invoked-with? [method url data]
+  (-> (js/chai.Assertion. js/smoax)
+      (.-not)
+      (.beenInvokedWith method url data)))
 
 (defn ajax-called?
   "This assertion checks if the code inside the mock makes any AJAX call.
@@ -23,11 +27,9 @@
                 (ajax-called? => true)))"
   [arrow result]
   (check-arrow arrow)
-  (when (not= (been-invoked?) result)
-    (.assert js/chai false
-             (if result
-               "Expected the ajax to have been invoked, but it was not"
-               "Expected the ajax not to have been invoked, but it was"))))
+  (if result
+    (been-invoked?)
+    (not-been-invoked?)))
 
 (defn ajax-called-with?
   "This assertion checks if the code inside the mock makes AJAX call with
@@ -38,13 +40,9 @@
                  (ajax-called-with \"GET\" \"url\" nil => true)))"
   [method url data arrow result]
   (check-arrow arrow)
-  (when (not= (been-invoked-with? method url data) result)
-    (.assert js/chai false
-             (if result
-               (format "Expected the URL %s to have been invoked with method %s and data %s, but it was not."
-                       url method data)
-               (format "Expected the URL %s not to have been invoked with method %s and data %s, but it was"
-                       url method data)))))
+  (if result
+    (been-invoked-with? method url data)
+    (not-been-invoked-with? method url data)))
 
 (defn ajax-called-with-json?
   "This assertion checks if the code inside the mock makes AJAX call with
