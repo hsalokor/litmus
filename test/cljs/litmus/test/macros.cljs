@@ -1,14 +1,16 @@
 (ns litmus.test.macros
   (:use [jayq.util :only [wait]]
         [litmus.assert :only [=> equals?]])
-  (:use-macros [litmus.macros :only [describe given then it before before! after after! before-each after-each]]))
+  (:use-macros [litmus.macros :only [describe given then it before before! after after! before-each before-each! after-each after-each!]]))
 
 (def before-test-atom (atom 0))
 (def before!-test-atom (atom 0))
 (def after-test-atom (atom 0))
 (def after!-test-atom (atom 0))
 (def before-each-atom (atom 0))
+(def before-each!-atom (atom 0))
 (def after-each-atom (atom 0))
+(def after-each!-atom (atom 0))
 
 (describe "Test description forms"
   (given "describe-given-then form"
@@ -88,6 +90,16 @@
     (then "is triggered before second test"
       (equals? @before-each-atom => 2))))
 
+(describe "Asynchronous before-each! hook"
+  (before-each! on-ready
+    (wait 150 (fn [] (swap! before-each!-atom inc)
+                    (on-ready))))
+  (given "when set up in describe block"
+    (then "is triggered before first test"
+      (equals? @before-each!-atom => 1))
+    (then "is triggered before second test"
+      (equals? @before-each!-atom => 2))))
+
 (describe "After-each hook"
   (after-each (swap! after-each-atom inc))
   (given "when set up in describe block"
@@ -97,3 +109,15 @@
       (equals? @after-each-atom => 1))
     (then "is triggered before third test"
       (equals? @after-each-atom => 2))))
+
+(describe "Asynchronous after-each! hook"
+  (after-each! on-ready
+    (wait 150 (fn [] (swap! after-each!-atom inc)
+                    (on-ready))))
+  (given "when set up in describe block"
+    (then "is not triggered before first test"
+      (equals? @after-each!-atom => 0))
+    (then "is triggered before second test"
+      (equals? @after-each!-atom => 1))
+    (then "is triggered before third test"
+      (equals? @after-each!-atom => 2))))
