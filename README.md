@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/hsalokor/litmus.png?branch=master)](https://travis-ci.org/hsalokor/litmus)
 
-Simple Clojurescript bindings for Mocha.js, Sinon.js, smoax and others.
+Simple Clojurescript bindings for Mocha.js, Chai.js, smoax and others.
 
 # Usage
 
 Add dependency
 
-    [litmus "0.3.2]
+    [litmus "0.4.0]
 
 To your project clj.
 
@@ -18,8 +18,9 @@ for Leiningen setup and `test` for example tests.
 # Features
 
 * Basic test running with either `describe-it` style or `describe-given-then` style
-* AJAX mocking support via smoax
-* Simple DOM matchers
+* Asynchronous test support (via `before-each!`, `before!` etc.)
+* AJAX mocking support via smoax (via `with-ajax-mocks`, `ajax-called?`, `ajax-called-with-json?` etc.)
+* Simple DOM matchers (`does-exist?`, `is-visible?` etc.)
 
 # Dependencies
 
@@ -27,6 +28,7 @@ For running tests
 
 * Node.js
 * Mocha-phantomjs
+* jayq
 
 For test HTML page
 
