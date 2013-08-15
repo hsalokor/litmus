@@ -41,7 +41,10 @@
                              :dataType :json
                              :error throw-exception}]
           (ajax-called? => true)
-          (equals? response => (clj->js {:lol "bal"}))))))
+          (equals? response => (clj->js {:lol "bal"})))))
+    (then "throws error when incorrect form is used"
+      (throws? (with-json-mocks [["DELETE" "/myurl" => {:lol "bal"}]])
+               => js/Error "Return code must be a number, but it was {:lol \"bal\"}")))
   (given "$.ajax call asserts"
     (then "ajax-called? => true (any call) passes check if HTTP call is made"
       (with-json-mocks [["GET" "/myurl" => 200 {:lol "bal"}]]
