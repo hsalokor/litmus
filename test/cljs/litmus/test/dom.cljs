@@ -42,7 +42,17 @@
       (hide ($ "#runtime-hiding"))
       (is-visible? "#runtime-hiding" => false)
       (show ($ "#runtime-hiding"))
-      (is-visible? "#runtime-hiding" => true)))
+      (is-visible? "#runtime-hiding" => true))
+    (then "produces correct results for child elements"
+      (is-visible? "#runtime-hiding" => true)
+      (is-visible? "#runtime-hiding-child" => true)
+      (hide ($ "#runtime-hiding"))
+      (is-visible? "#runtime-hiding" => false)
+      (is-visible? "#runtime-hiding-child" => false)
+      (show ($ "#runtime-hiding"))
+      (is-visible? "#runtime-hiding" => true)
+      (is-visible? "#runtime-hiding" => true)
+      (is-visible? "#runtime-hiding-child" => true)))
   (given "is-enabled? to button elements #disabled-button and #enabled-button"
     (then "passes check for selector #disabled-button with expected result false"
       (is-enabled? "#disabled-button" => false))
