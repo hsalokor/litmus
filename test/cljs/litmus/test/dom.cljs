@@ -1,5 +1,6 @@
 (ns litmus.test.dom
-  (:use [litmus.assert :only [=> equals?]]
+  (:use [jayq.core :only [$ show hide]]
+        [litmus.assert :only [=> equals?]]
         [litmus.dom :only [does-exist? match-count is-visible? is-enabled? has-text? has-class?]])
   (:use-macros [litmus.macros :only [describe given then]]
                [litmus.assert.macros :only [throws? not-throws?]]))
@@ -35,7 +36,13 @@
     (then "passes check for selector #hidden with expected result false"
       (is-visible? "#hidden" => false))
     (then "passes check for selector #display-none with expected result false"
-      (is-visible? "#display-none" => false)))
+      (is-visible? "#display-none" => false))
+    (then "is compatible with jQuery hide and show"
+      (is-visible? "#runtime-hiding" => true)
+      (hide ($ "#runtime-hiding"))
+      (is-visible? "#runtime-hiding" => false)
+      (show ($ "#runtime-hiding"))
+      (is-visible? "#runtime-hiding" => true)))
   (given "is-enabled? to button elements #disabled-button and #enabled-button"
     (then "passes check for selector #disabled-button with expected result false"
       (is-enabled? "#disabled-button" => false))
