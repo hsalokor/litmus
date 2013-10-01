@@ -59,6 +59,11 @@ Or, call mocha-phantomjs directly
     lein cljsbuild once
     mocha-phantomjs resources/test.html
 
+# Contributors
+
+* Harri Salokorpi (Author)
+* Jori Ahvonen
+
 # Backlog
 
 * Helpers for conditionally running tests on (production) page. Url parameter http://...?test -> tests and deps are loaded - **WIP** -> topic/conditional_integration
