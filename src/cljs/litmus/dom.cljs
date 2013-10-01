@@ -89,6 +89,6 @@
   (check-arrow arrow)
   (if result
     (.isTrue chai.assert (has-class ($ selector) expected-class)
-             (format "Element selected by selector %s did not have class %s" selector expected-class))
+             (str "Element selected by selector " selector " did not have class " expected-class))
     (.isFalse chai.assert (has-class ($ selector) expected-class)
-             (format "Element selected by selector %s did have class %s" selector expected-class))))
+             (str "Element selected by selector " selector " did have class " expected-class))))
